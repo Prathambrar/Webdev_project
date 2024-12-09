@@ -4,7 +4,7 @@ include 'db.php'; // Include the database connection
 
 // If the user is already logged in, redirect to the appropriate dashboard
 if (isset($_SESSION['username'])) {
-    header("Location: index.php");
+    header("Location: main.php");
     exit;
 }
 
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute([$username, $hashed_password, 'registered user']); // Use 'registered user' as the role
 
         // Redirect to login page after successful registration
-        header("Location: login.php");
+        header("Location: index.php");
         exit;
     } catch (PDOException $e) {
         // If there is an error, display it
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label>Password:</label>
         <input type="password" name="password" required><br>
         <button type="submit">Register</button>
-        <p>Already have an account? <a href="login.php">Login here</a></p>
+        <p>Already have an account? <a href="index.php">Login here</a></p>
     </form>
 </body>
 </html>

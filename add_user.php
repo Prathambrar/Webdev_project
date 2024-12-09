@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash password
-    $role = isset($_POST['is_admin']) ? 'admin' : 'normal'; // Default to "normal" unless the checkbox is checked
+    $role = isset($_POST['is_admin']) ? 'admin' : 'registered user'; // Default to "normal" unless the checkbox is checked
 
     $stmt = $pdo->prepare('INSERT INTO Users (username, email, password, role) VALUES (?, ?, ?, ?)');
     $stmt->execute([$username, $email, $password, $role]);

@@ -64,7 +64,7 @@ a.create-listing-button:hover {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-.manage-users-button {
+.manage-button {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px 0;
@@ -76,8 +76,10 @@ a.create-listing-button:hover {
     text-align: center;
 }
 
-.manage-users-button:hover {
+.manage-button:hover {
     background-color: #0056b3;
+    color: whitesmoke;
+    text-decoration: none;
 }
 
 .add-user-button {
@@ -94,6 +96,8 @@ a.create-listing-button:hover {
 
 .add-user-button:hover {
     background-color: #0056b3;
+    color: whitesmoke;
+    text-decoration: none;
 }
 
 
