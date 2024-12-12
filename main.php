@@ -2,6 +2,13 @@
 session_start();
 include 'db.php'; // Include the database connection
 
+// Check if the user is logged in
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if not logged in
+    header("Location: index.php");
+    exit;
+}
+
 // Initialize search and sort parameters
 $search = $_GET['search'] ?? '';
 $sort_by = $_GET['sort_by'] ?? 'car_id'; // Default sorting by ID
@@ -88,54 +95,21 @@ foreach ($all_comments as $comment) {
 
             <!-- Display the car listings -->
             <table border="1" style="width: 100%; margin-bottom: 20px;">
-                <tr>
-                    <th>Model</th>
-                    <th>Year</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                    <th>Comments</th>
-                </tr>
-                <?php foreach ($cars as $car): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($car['model']) ?></td>
-                        <td><?= $car['year'] ?></td>
-                        <td><?= $car['price'] ?></td>
-                        <td><?= htmlspecialchars($car['description']) ?></td>
-                        <td>
-                            <!-- Display Comments -->
-                            <table border="1" style="width: 100%;">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Comment</th>
-                                    <th>Date</th>
-                                </tr>
-                                <?php if (isset($comments_by_car[$car['car_id']])): ?>
-                                    <?php foreach ($comments_by_car[$car['car_id']] as $comment): ?>
-                                        <tr>
-                                            <td><?= htmlspecialchars($comment['username']) ?></td>
-                                            <td><?= htmlspecialchars($comment['comment']) ?></td>
-                                            <td><?= htmlspecialchars($comment['created_at']) ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                <?php else: ?>
-                                    <tr>
-                                        <td colspan="3">No comments yet.</td>
-                                    </tr>
-                                <?php endif; ?>
-                            </table>
-
-                            <!-- Add Comment Form (Users Only) -->
-                            <?php if (isset($_SESSION['username']) && $_SESSION['role'] !== 'admin'): ?>
-                                <form method="post" action="add_comment.php">
-                                    <input type="hidden" name="car_id" value="<?= $car['car_id'] ?>">
-                                    <textarea name="comment" placeholder="Add a comment..." required></textarea><br>
-                                    <button type="submit">Submit</button>
-                                </form>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+    <tr>
+        <th>Model</th>
+        <th>Year</th>
+        <th>Price</th>
+        <th>Description</th>
+    </tr>
+    <?php foreach ($cars as $car): ?>
+        <tr>
+            <td><a href="car_details.php?car_id=<?= $car['car_id'] ?>"><?= htmlspecialchars($car['model']) ?></a></td>
+            <td><?= $car['year'] ?></td>
+            <td><?= $car['price'] ?></td>
+            <td><?= htmlspecialchars($car['description']) ?></td>
+        </tr>
+    <?php endforeach; ?>
+</table>
         </section>
     </main>
 

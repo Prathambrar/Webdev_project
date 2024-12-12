@@ -101,7 +101,7 @@ if ($active_tab === 'cars') {
             <?php foreach ($items as $car): ?>
                 <tr>
                     <td><?= $car['car_id'] ?></td>
-                    <td><?= htmlspecialchars($car['model']) ?></td>
+                    <td><a href="car_details.php?car_id=<?= $car['car_id'] ?>"><?= htmlspecialchars($car['model']) ?></a></td>
                     <td><?= $car['year'] ?></td>
                     <td><?= $car['price'] ?></td>
                     <td><?= htmlspecialchars($car['description']) ?></td>

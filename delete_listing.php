@@ -6,16 +6,30 @@ include 'db.php';  // Include database connection
 if (isset($_GET['id'])) {
     $car_id = $_GET['id'];  // Get car_id from the URL
 
-    // Prepare and execute the DELETE query
-    $stmt = $pdo->prepare('DELETE FROM Cars WHERE car_id = :car_id');
-    $stmt->bindValue(':car_id', $car_id);
+    try {
+        // Begin a transaction
+        $pdo->beginTransaction();
 
-    if ($stmt->execute()) {
+        // Delete related comments
+        $stmt = $pdo->prepare('DELETE FROM comments WHERE car_id = :car_id');
+        $stmt->bindValue(':car_id', $car_id);
+        $stmt->execute();
+
+        // Delete the car
+        $stmt = $pdo->prepare('DELETE FROM Cars WHERE car_id = :car_id');
+        $stmt->bindValue(':car_id', $car_id);
+        $stmt->execute();
+
+        // Commit the transaction
+        $pdo->commit();
+
         // Redirect to the admin dashboard after successful deletion
         header('Location: admin_dashboard.php');
         exit;
-    } else {
-        echo 'Error deleting listing.';  // Display error if deletion fails
+    } catch (PDOException $e) {
+        // Rollback transaction in case of error
+        $pdo->rollBack();
+        echo 'Error deleting listing: ' . $e->getMessage();
     }
 }
 ?>
