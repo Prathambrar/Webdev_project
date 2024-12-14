@@ -47,39 +47,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login - AutoHub</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            background-image: url('backphoto.jpg'); /* Background photo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
         }
 
         header {
-            background-color: #007bff;
+            background-color: rgba(0, 123, 255, 0.85); /* Slight transparency */
             color: white;
+            text-align: center;
             padding: 20px;
-        }
-
-        header h1 {
-            margin: 0;
         }
 
         .login-container {
-            margin: 50px auto;
+            margin: 100px auto;
             padding: 20px;
             max-width: 400px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9); /* Light transparent background */
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .login-container h2 {
             margin-bottom: 20px;
+            font-size: 24px;
         }
 
         .login-container label {
             display: block;
-            margin: 10px 0 5px;
+            margin-bottom: 5px;
             font-weight: bold;
         }
 
@@ -120,6 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         footer {
+            text-align: center;
             margin-top: 50px;
             color: #777;
         }
@@ -136,10 +138,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php if (isset($error)): ?>
                 <p style="color: red;"><?php echo $error; ?></p>
             <?php endif; ?>
-            <label>Username:</label>
-            <input type="text" name="username" required>
-            <label>Password:</label>
-            <input type="password" name="password" required>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
             <button type="submit">Login</button>
             <p>Don't have an account? <a href="register.php">Register here</a></p>
         </form>
