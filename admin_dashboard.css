@@ -67,7 +67,7 @@ a.create-listing-button:hover {
 .manage-button {
     display: inline-block;
     padding: 10px 20px;
-    margin: 10px 0;
+    margin: 11px 0;
     background-color: #007BFF;
     color: white;
     text-decoration: none;
@@ -85,7 +85,7 @@ a.create-listing-button:hover {
 .add-user-button {
     display: inline-block;
     padding: 10px 20px;
-    margin: 10px 0;
+    margin: 11px 0;
     background-color: #007BFF;
     color: white;
     text-decoration: none;
