@@ -127,31 +127,110 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Edit Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .edit-container {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            display: block;
+            margin: 10px 0;
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
 </head>
 <body>
-    <h2>Edit Car Listing</h2>
-    <form method="post" action="edit_listing.php?id=<?= $car['car_id'] ?>" enctype="multipart/form-data">
-        <input type="hidden" name="car_id" value="<?= htmlspecialchars($car['car_id']) ?>">
-        <label>Model:</label>
-        <input type="text" name="model" value="<?= htmlspecialchars($car['model']) ?>" required><br>
-        <label>Year:</label>
-        <input type="number" name="year" value="<?= htmlspecialchars($car['year']) ?>" required><br>
-        <label>Price:</label>
-        <input type="number" name="price" step="0.01" value="<?= htmlspecialchars($car['price']) ?>" required><br>
-        <label>Description:</label>
-        <textarea name="description" required><?= htmlspecialchars($car['description']) ?></textarea><br>
+    <div class="edit-container">
+        <h2>Edit Car Listing</h2>
+        <form method="post" action="edit_listing.php?id=<?= $car['car_id'] ?>" enctype="multipart/form-data">
+            <input type="hidden" name="car_id" value="<?= htmlspecialchars($car['car_id']) ?>">
+            <label>Model:</label>
+            <input type="text" name="model" value="<?= htmlspecialchars($car['model']) ?>" required>
+            <label>Year:</label>
+            <input type="number" name="year" value="<?= htmlspecialchars($car['year']) ?>" required>
+            <label>Price:</label>
+            <input type="number" name="price" step="0.01" value="<?= htmlspecialchars($car['price']) ?>" required>
+            <label>Description:</label>
+            <textarea name="description" required><?= htmlspecialchars($car['description']) ?></textarea>
 
-        <!-- Display current image -->
-        <?php if (!empty($car['image_filename'])): ?>
-            <img src="uploads/<?= htmlspecialchars($car['image_filename']) ?>" alt="Car Image" width="200"><br>
-            <button type="submit" name="delete_image" onclick="return confirm('Are you sure you want to delete this image?')">Delete Image</button><br>
-        <?php endif; ?>
+            <!-- Display current image -->
+            <?php if (!empty($car['image_filename'])): ?>
+                <img src="uploads/<?= htmlspecialchars($car['image_filename']) ?>" alt="Car Image">
+                <button class="delete-btn" type="submit" name="delete_image" onclick="return confirm('Are you sure you want to delete this image?')">Delete Image</button>
+            <?php endif; ?>
 
-        <!-- Upload new image -->
-        <label>Change Image:</label>
-        <input type="file" name="image" accept="image/*"><br>
+            <!-- Upload new image -->
+            <label>Change Image:</label>
+            <input type="file" name="image" accept="image/*">
 
-        <button type="submit" name="update">Update</button>
-    </form>
+            <button type="submit" name="update">Update</button>
+        </form>
+    </div>
 </body>
 </html>
