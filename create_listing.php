@@ -88,28 +88,87 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Create Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h2>Create New Car Listing</h2>
-    <form method="post" action="create_listing.php" enctype="multipart/form-data">
-    <label>Model:</label>
-    <input type="text" name="model" required><br>
-    <label>Year:</label>
-    <input type="number" name="year" required><br>
-    <label>Price:</label>
-    <input type="number" name="price" step="0.01" required><br>
-    <label>Description:</label>
-    <textarea name="description" required></textarea><br>
-    <label>Image (optional):</label>
-    <input type="file" name="image" accept="image/*"><br>
-    <button type="submit">Create Listing</button>
-</form>
-
+    <div class="form-container">
+        <h2>Create New Car Listing</h2>
+        <form method="post" action="create_listing.php" enctype="multipart/form-data">
+            <label>Model:</label>
+            <input type="text" name="model" required>
+            <label>Year:</label>
+            <input type="number" name="year" required>
+            <label>Price:</label>
+            <input type="number" name="price" step="0.01" required>
+            <label>Description:</label>
+            <textarea name="description" required></textarea>
+            <label>Image (optional):</label>
+            <input type="file" name="image" accept="image/*">
+            <button type="submit">Create Listing</button>
+        </form>
+    </div>
 </body>
 </html>
