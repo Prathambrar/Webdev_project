@@ -1,31 +1,21 @@
 <?php
 session_start();
 
-function generateCaptcha() {
-    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    $captchaText = '';
-    for ($i = 0; $i < 6; $i++) {
-        $captchaText .= $characters[rand(0, strlen($characters) - 1)];
-    }
+header('Content-Type: image/png');
 
-    $_SESSION['captcha'] = $captchaText;
+// Generate random CAPTCHA text
+$captcha_text = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'), 0, 6);
+$_SESSION['captcha'] = $captcha_text;
 
-    $image = imagecreatetruecolor(150, 50);
-    $bgColor = imagecolorallocate($image, 255, 255, 255); // white background
-    $textColor = imagecolorallocate($image, 0, 0, 0); // black text
-    imagefilledrectangle($image, 0, 0, 150, 50, $bgColor);
+// Create image
+$image = imagecreate(120, 40);
+$background_color = imagecolorallocate($image, 255, 255, 255); // White background
+$text_color = imagecolorallocate($image, 0, 0, 0); // Black text
 
-    // Add random noise (lines)
-    for ($i = 0; $i < 10; $i++) {
-        imageline($image, rand() % 150, rand() % 50, rand() % 150, rand() % 50, $textColor);
-    }
+// Add text to image
+imagestring($image, 5, 10, 10, $captcha_text, $text_color);
 
-    // Add the text
-    imagestring($image, 5, 50, 15, $captchaText, $textColor);
-
-    header('Content-Type: image/png');
-    imagepng($image);
-    imagedestroy($image);
-}
-
-generateCaptcha();
+// Output image
+imagepng($image);
+imagedestroy($image);
+?>

@@ -66,46 +66,50 @@ $comments = $comments_stmt->fetchAll(PDO::FETCH_ASSOC);
         </section>
 
         <section>
-    <h2>Comments</h2>
-    <?php if ($comments): ?>
-        <table border="1" style="width: 100%; margin-bottom: 20px;">
-            <tr>
-                <th>Username</th>
-                <th>Comment</th>
-                <th>Date</th>
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                    <th>Action</th>
-                <?php endif; ?>
-            </tr>
-            <?php foreach ($comments as $comment): ?>
-                <tr>
-                    <td><?= htmlspecialchars($comment['username']) ?></td>
-                    <td><?= htmlspecialchars($comment['comment']) ?></td>
-                    <td><?= htmlspecialchars($comment['created_at']) ?></td>
-                    <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                        <td>
-                            <form method="post" action="delete_comment.php" style="display: inline;">
-                                <input type="hidden" name="comment_id" value="<?= $comment['comment_id'] ?>">
-                                <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
-                            </form>
-                        </td>
-                    <?php endif; ?>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php else: ?>
-        <p>No comments yet.</p>
-    <?php endif; ?>
+            <h2>Comments</h2>
+            <?php if ($comments): ?>
+                <table border="1" style="width: 100%; margin-bottom: 20px;">
+                    <tr>
+                        <th>Username</th>
+                        <th>Comment</th>
+                        <th>Date</th>
+                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <th>Action</th>
+                        <?php endif; ?>
+                    </tr>
+                    <?php foreach ($comments as $comment): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($comment['username']) ?></td>
+                            <td><?= htmlspecialchars($comment['comment']) ?></td>
+                            <td><?= htmlspecialchars($comment['created_at']) ?></td>
+                            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                                <td>
+                                    <form method="post" action="delete_comment.php" style="display: inline;">
+                                        <input type="hidden" name="comment_id" value="<?= $comment['comment_id'] ?>">
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this comment?')">Delete</button>
+                                    </form>
+                                </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <p>No comments yet.</p>
+            <?php endif; ?>
 
-    <!-- Add Comment Form (Users Only) -->
-    <?php if (isset($_SESSION['username']) && $_SESSION['role'] !== 'admin'): ?>
-        <form method="post" action="add_comment.php">
-            <input type="hidden" name="car_id" value="<?= $car['car_id'] ?>">
-            <textarea name="comment" placeholder="Add a comment..." required></textarea><br>
-            <button type="submit">Submit</button>
-        </form>
-    <?php endif; ?>
-</section>
+            <!-- Add Comment Form (Users Only) -->
+            <?php if (isset($_SESSION['username']) && $_SESSION['role'] !== 'admin'): ?>
+                <form method="post" action="add_comment.php">
+                    <input type="hidden" name="car_id" value="<?= $car['car_id'] ?>">
+                    <textarea name="comment" placeholder="Add a comment..." required></textarea><br>
+                    <!-- CAPTCHA -->
+                    <label for="captcha">Enter CAPTCHA:</label><br>
+                    <img src="generate_captcha.php" alt="CAPTCHA"><br>
+                    <input type="text" id="captcha" name="captcha" required><br><br>
+                    <button type="submit">Submit</button>
+                </form>
+            <?php endif; ?>
+        </section>
 
     </main>
 
